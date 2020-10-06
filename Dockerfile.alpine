@@ -15,10 +15,10 @@ ARG GCC_LIBS_VER
 ARG ZLIB_VER
 
 RUN apk --update add --no-cache \
-	ca-certificates \
-	curl \
-	openssl \
-	binutils xz \
+    ca-certificates \
+    curl \
+    openssl \
+    binutils xz \
     && ALPINE_GLIBC_REPO="https://github.com/sgerrand/alpine-pkg-glibc/releases/download" \
     && GCC_LIBS_URL="https://archive.archlinux.org/packages/g/gcc-libs/gcc-libs-${GCC_LIBS_VER}-x86_64.pkg.tar.xz" \
     && ZLIB_URL="https://archive.archlinux.org/packages/z/zlib/zlib-${ZLIB_VER}-x86_64.pkg.tar.xz" \
@@ -42,4 +42,4 @@ COPY --from=build /opt/java/openjdk/bin/jshell /opt/jdk/bin/
 
 #docker build --no-cache --build-arg IMAGE=adoptopenjdk/openjdk11 --build-arg IMAGE_VERSION=alpine-slim --build-arg GLIBC_VER=2.32-r0 --build-arg GCC_LIBS_VER=9.2.0-4 --build-arg ZLIB_VER=1:1.2.11-4 --file Dockerfile.alpine --tag image-name:version .
 #xhost +local:docker
-#docker run --interactive --tty --volume /tmp/.X11-unix:/tmp/.X11-unix --env DISPLAY=unix$DISPLAY --name container-name image-name:version
+#docker container run --interactive --tty --volume /tmp/.X11-unix:/tmp/.X11-unix --env DISPLAY=unix$DISPLAY --name container-name image-name:version
