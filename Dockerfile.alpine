@@ -10,17 +10,17 @@ RUN ["jlink", "--compress=2", \
 
 FROM alpine:latest
 
-ARG GLIBC_VER
-ARG GCC_LIBS_VER
-ARG ZLIB_VER
-
-ARG ALPINE_GLIBC_REPO="https://github.com/sgerrand/alpine-pkg-glibc/releases/download"
-ARG GCC_LIBS_URL="https://archive.archlinux.org/packages/g/gcc-libs/gcc-libs-${GCC_LIBS_VER}-x86_64.pkg.tar.xz"
-ARG ZLIB_URL="https://archive.archlinux.org/packages/z/zlib/zlib-${ZLIB_VER}-x86_64.pkg.tar.xz"
-
 ADD https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub /etc/apk/keys/sgerrand.rsa.pub
+ARG GLIBC_VER
+ARG ALPINE_GLIBC_REPO="https://github.com/sgerrand/alpine-pkg-glibc/releases/download"
 ADD ${ALPINE_GLIBC_REPO}/${GLIBC_VER}/glibc-${GLIBC_VER}.apk /tmp/${GLIBC_VER}.apk
+
+ARG GCC_LIBS_VER
+ARG GCC_LIBS_URL="https://archive.archlinux.org/packages/g/gcc-libs/gcc-libs-${GCC_LIBS_VER}-x86_64.pkg.tar.xz"
 ADD ${GCC_LIBS_URL} /tmp/gcc-libs.tar.xz
+
+ARG ZLIB_VER
+ARG ZLIB_URL="https://archive.archlinux.org/packages/z/zlib/zlib-${ZLIB_VER}-x86_64.pkg.tar.xz"
 ADD ${ZLIB_URL} /tmp/libz.tar.xz
 
 RUN apk --update add --no-cache \
